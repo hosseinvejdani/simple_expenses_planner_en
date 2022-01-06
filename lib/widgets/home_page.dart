@@ -41,9 +41,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     // double _width = MediaQuery.of(context).size.width;
-    double _height = MediaQuery.of(context).size.height;
-    double _boxChartHeight = 0.30 * _height;
-    double _txListBoxHeight = 0.80 * _height - _boxChartHeight;
+    final _height = MediaQuery.of(context).size.height;
+    final _boxChartHeight = 0.30 * _height;
 
     return Scaffold(
       appBar: AppBar(
@@ -72,8 +71,9 @@ class _HomePageState extends State<HomePage> {
                 elevation: 5,
               ),
             ),
-            TransactionsList(
-                txListBoxHeight: _txListBoxHeight, transactions: _transactions),
+            Expanded(
+              child: TransactionsList(transactions: _transactions),
+            ),
           ],
         ),
       ),
