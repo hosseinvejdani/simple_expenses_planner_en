@@ -19,11 +19,15 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) {
         return NewTransactionForm(
-          height: 600,
           newTransactionHandler: _addNewTransaction,
           cancleButtonHandler: _cancleAddingNewTransaction,
         );
       },
+      isDismissible: false,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+        top: Radius.circular(20),
+      )),
     );
   }
 

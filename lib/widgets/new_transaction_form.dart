@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
 class NewTransactionForm extends StatefulWidget {
-  final double height;
   final Function newTransactionHandler;
   final VoidCallback cancleButtonHandler;
   const NewTransactionForm({
     required this.cancleButtonHandler,
     required this.newTransactionHandler,
-    required this.height,
     Key? key,
   }) : super(key: key);
 
@@ -59,8 +57,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-      color: Colors.white,
+      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 16),
       width: double.infinity,
       child: Column(
         children: [
