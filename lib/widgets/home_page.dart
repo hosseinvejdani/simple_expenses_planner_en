@@ -48,6 +48,14 @@ class _HomePageState extends State<HomePage> {
     Navigator.of(context).pop();
   }
 
+  void _deleteHandler(String id) {
+    setState(() {
+      _transactions.removeWhere((element) {
+        return element.id == id;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // double _width = MediaQuery.of(context).size.width;
@@ -82,7 +90,10 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Expanded(
-              child: TransactionsList(transactions: _transactions),
+              child: TransactionsList(
+                transactions: _transactions,
+                deleteHandler: _deleteHandler,
+              ),
             ),
           ],
         ),

@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class SingleTx extends StatelessWidget {
+  final String id;
   final String title;
   final double value;
   final DateTime date;
+  final Function deleteHandler;
 
-  const SingleTx(
-      {required this.title, required this.value, required this.date, Key? key})
-      : super(key: key);
+  const SingleTx({
+    required this.id,
+    required this.title,
+    required this.value,
+    required this.date,
+    required this.deleteHandler,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +43,7 @@ class SingleTx extends StatelessWidget {
           trailing: Padding(
             padding: const EdgeInsets.only(right: 6.0),
             child: IconButton(
-              onPressed: () {
-                // ignore: avoid_print
-                print('delete one card');
-              },
+              onPressed: () => deleteHandler(id),
               icon: Icon(Icons.delete),
               color: Colors.redAccent,
             ),
