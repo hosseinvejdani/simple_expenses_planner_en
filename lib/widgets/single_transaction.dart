@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SingleTx extends StatelessWidget {
   final String title;
@@ -31,7 +32,7 @@ class SingleTx extends StatelessWidget {
             title,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          subtitle: Text(date.toString()),
+          subtitle: Text(DateFormat.yMMMEd().format(date)),
           trailing: Padding(
             padding: const EdgeInsets.only(right: 6.0),
             child: IconButton(

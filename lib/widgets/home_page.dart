@@ -32,12 +32,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _addNewTransaction(Map data) {
-    DateTime _date = DateTime.now();
     Transaction newTx = Transaction(
-      id: _date.toString(),
+      id: data['date'].toString(),
       title: data['title'],
       value: data['value'],
-      date: _date,
+      date: data['date'],
     );
     setState(() {
       _transactions.add(newTx);

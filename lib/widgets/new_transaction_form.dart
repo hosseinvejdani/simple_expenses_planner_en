@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransactionForm extends StatefulWidget {
   final Function newTransactionHandler;
@@ -16,6 +17,7 @@ class NewTransactionForm extends StatefulWidget {
 class _NewTransactionFormState extends State<NewTransactionForm> {
   final _titleController = TextEditingController();
   final _valueController = TextEditingController();
+  DateTime _selectedDate = DateTime.now();
 
   bool _isValidTitle = true;
   bool _isValidValue = true;
@@ -25,6 +27,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
       widget.newTransactionHandler({
         'title': _titleController.text,
         'value': double.parse(_valueController.text),
+        'date': _selectedDate,
       });
     }
   }
@@ -52,6 +55,22 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
     }
 
     return true;
+  }
+
+  void _presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2022),
+      lastDate: DateTime.now(),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return null;
+      }
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    });
   }
 
   @override
@@ -89,7 +108,26 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
             controller: _valueController,
           ),
           SizedBox(
-            height: 40,
+            height: 20,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Date:     ${DateFormat.yMMMd().format(_selectedDate)}',
+                style: TextStyle(fontSize: 16),
+              ),
+              TextButton(
+                onPressed: _presentDatePicker,
+                child: Text(
+                  'Choose Date',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
