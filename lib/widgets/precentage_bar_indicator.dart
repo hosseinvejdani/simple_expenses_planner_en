@@ -23,8 +23,8 @@ class PrecentageBarIndicator extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: Colors.grey[200],
             ),
-            height: 90,
-            width: 15,
+            height: height,
+            width: width,
           ),
           Container(
             decoration: BoxDecoration(
@@ -34,8 +34,8 @@ class PrecentageBarIndicator extends StatelessWidget {
               ),
               color: Colors.purple,
             ),
-            height: 50,
-            width: 15,
+            height: height * precentage,
+            width: width,
           ),
         ],
       ),

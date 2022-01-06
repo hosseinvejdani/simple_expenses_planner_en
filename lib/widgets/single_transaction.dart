@@ -26,6 +26,7 @@ class SingleTx extends StatelessWidget {
         padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
         child: ListTile(
           leading: CircleAvatar(
+            // TODO : modify cirlce avatar for long numbers
             radius: 35,
             child: FittedBox(
               child: Text(

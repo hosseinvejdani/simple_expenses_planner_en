@@ -56,6 +56,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  List get _recentTransactions {
+    return _transactions
+        .where(
+            (tx) => tx.date.isAfter(DateTime.now().subtract(Duration(days: 7))))
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     // double _width = MediaQuery.of(context).size.width;
@@ -85,7 +92,9 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.all(5),
               margin: EdgeInsets.only(top: 7, bottom: 10),
               child: Card(
-                child: LastWeekChartBox(),
+                child: LastWeekChartBox(
+                  transactions: _recentTransactions,
+                ),
                 elevation: 5,
               ),
             ),

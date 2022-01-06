@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import './precentage_bar_indicator.dart';
 
 class DailyIndicator extends StatelessWidget {
-  const DailyIndicator({Key? key}) : super(key: key);
+  final String day;
+  final int precentage;
+  const DailyIndicator({required this.day, required this.precentage, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +14,13 @@ class DailyIndicator extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          '70%',
+          '$precentage%',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        PrecentageBarIndicator(height: 90, width: 10, precentage: 0.7),
+        PrecentageBarIndicator(
+            height: 90, width: 10, precentage: precentage / 100),
         Text(
-          'Sat',
+          day,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ],
