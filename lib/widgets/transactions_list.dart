@@ -13,7 +13,7 @@ class TransactionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO : sort list base on date
+    transactions.sort((tx1, tx2) => tx2.date.compareTo(tx1.date));
     return ListView.builder(
       itemCount: transactions.length,
       itemBuilder: (BuildContext context, index) {
