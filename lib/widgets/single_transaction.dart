@@ -19,6 +19,7 @@ class SingleTx extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO : add edit button
     return Card(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 10),
       elevation: 5,

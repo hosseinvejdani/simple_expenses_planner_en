@@ -15,13 +15,15 @@ class DailyIndicator extends StatelessWidget {
       children: [
         Text(
           '$precentage%',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style:
+              TextStyle(fontWeight: FontWeight.bold, color: Colors.grey[700]),
         ),
         PrecentageBarIndicator(
-            height: 90, width: 10, precentage: precentage / 100),
+            height: 90, width: 15, precentage: precentage / 100),
         Text(
           day,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style:
+              TextStyle(fontWeight: FontWeight.bold, color: Colors.grey[700]),
         ),
       ],
     );

@@ -20,7 +20,7 @@ class PrecentageBarIndicator extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(width / 2),
               color: Colors.grey[200],
             ),
             height: height,
@@ -28,10 +28,12 @@ class PrecentageBarIndicator extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-              ),
+              borderRadius: precentage < 0.95
+                  ? BorderRadius.only(
+                      bottomLeft: Radius.circular(width / 2),
+                      bottomRight: Radius.circular(width / 2),
+                    )
+                  : BorderRadius.circular(width / 2),
               color: Colors.purple,
             ),
             height: height * precentage,
