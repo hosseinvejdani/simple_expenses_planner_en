@@ -3,17 +3,58 @@ import 'package:flutter/material.dart';
 class NewTransactionForm extends StatefulWidget {
   final double height;
   final Function newTransactionHandler;
-  const NewTransactionForm(
-      {required this.newTransactionHandler, required this.height, Key? key})
-      : super(key: key);
+  final VoidCallback cancleButtonHandler;
+  const NewTransactionForm({
+    required this.cancleButtonHandler,
+    required this.newTransactionHandler,
+    required this.height,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<NewTransactionForm> createState() => _NewTransactionFormState();
 }
 
 class _NewTransactionFormState extends State<NewTransactionForm> {
-  final titleController = TextEditingController();
-  final valueController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _valueController = TextEditingController();
+
+  bool _isValidTitle = true;
+  bool _isValidValue = true;
+
+  void _submitData() {
+    if (_isValidData()) {
+      widget.newTransactionHandler({
+        'title': _titleController.text,
+        'value': double.parse(_valueController.text),
+      });
+    }
+  }
+
+  bool _isValidData() {
+    if (_titleController.text.isEmpty) {
+      setState(() {
+        _isValidTitle = false;
+      });
+      return false;
+    } else if (_valueController.text.isEmpty) {
+      setState(() {
+        _isValidValue = false;
+      });
+      return false;
+    }
+
+    final enteredAmount = double.parse(_valueController.text);
+
+    if (enteredAmount <= 0) {
+      setState(() {
+        _isValidValue = false;
+      });
+      return false;
+    }
+
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +75,9 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
           ),
           TextField(
             decoration: InputDecoration(
-              labelText: 'title',
-            ),
-            controller: titleController,
+                labelText: 'title',
+                errorText: _isValidTitle ? null : 'Title can not be empty!!'),
+            controller: _titleController,
           ),
           SizedBox(
             height: 10,
@@ -44,8 +85,11 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
           TextField(
             decoration: InputDecoration(
               labelText: 'value',
+              errorText: _isValidValue
+                  ? null
+                  : 'Value can not be empty, zero of negative number!!',
             ),
-            controller: valueController,
+            controller: _valueController,
           ),
           SizedBox(
             height: 40,
@@ -54,7 +98,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                  onPressed: () {},
+                  onPressed: widget.cancleButtonHandler,
                   child: Text(
                     'CANCLE',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -63,10 +107,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                 width: 20,
               ),
               ElevatedButton(
-                onPressed: () => widget.newTransactionHandler({
-                  'title': titleController.text,
-                  'value': double.parse(valueController.text),
-                }),
+                onPressed: _submitData,
                 child: Text(
                   'ADD',
                   style: TextStyle(fontWeight: FontWeight.bold),

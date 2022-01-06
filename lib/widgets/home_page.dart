@@ -19,7 +19,10 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) {
         return NewTransactionForm(
-            height: 600, newTransactionHandler: _addNewTransaction);
+          height: 600,
+          newTransactionHandler: _addNewTransaction,
+          cancleButtonHandler: _cancleAddingNewTransaction,
+        );
       },
     );
   }
@@ -35,6 +38,10 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _transactions.add(newTx);
     });
+    Navigator.of(context).pop();
+  }
+
+  void _cancleAddingNewTransaction() {
     Navigator.of(context).pop();
   }
 
