@@ -17,19 +17,22 @@ class LastWeekChartBox extends StatelessWidget {
     );
   }
 
+  // getter for last 7 days expense in Map format
   Map get _last7Days {
     Map _result = {};
     String _day;
 
-    for (int d = 0; d < 7; d++) {
+    // extract last 7 day week days
+    for (int d = 6; d >= 0; d--) {
       _day = DateFormat.E().format(DateTime.now().subtract(Duration(days: d)));
       _result[_day] = 0.0;
     }
-    _result.keys.toList().forEach((day) {
+    //calculate expenses for each day in last 7 days
+    for (var day in _result.keys) {
       _result[day] = _valueSum(transactions.where((tx) {
         return DateFormat.E().format(tx.date) == day;
       }).toList());
-    });
+    }
     return _result;
   }
 

@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // double _width = MediaQuery.of(context).size.width;
+    // TODO : add awsome widget for empty space
     final _height = MediaQuery.of(context).size.height;
     final _boxChartHeight = 0.30 * _height;
 
