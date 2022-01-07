@@ -90,6 +90,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
             ),
           ),
           TextField(
+            keyboardType: TextInputType.name,
             decoration: InputDecoration(
                 labelText: 'title',
                 errorText: _isValidTitle ? null : 'Title can not be empty!!'),
@@ -99,6 +100,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
             height: 10,
           ),
           TextField(
+            keyboardType: TextInputType.number,
             decoration: InputDecoration(
               labelText: 'value',
               errorText: _isValidValue
