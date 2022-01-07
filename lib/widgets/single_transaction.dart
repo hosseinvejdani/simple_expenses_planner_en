@@ -42,13 +42,10 @@ class SingleTx extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Text(DateFormat.yMMMEd().format(date)),
-          trailing: Padding(
-            padding: const EdgeInsets.only(right: 6.0),
-            child: IconButton(
-              onPressed: () => deleteHandler(id),
-              icon: Icon(Icons.delete),
-              color: Colors.redAccent,
-            ),
+          trailing: IconButton(
+            onPressed: () => deleteHandler(id),
+            icon: Icon(Icons.delete),
+            color: Colors.redAccent,
           ),
         ),
       ),

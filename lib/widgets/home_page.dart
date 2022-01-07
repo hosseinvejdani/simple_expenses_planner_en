@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './transactions_list.dart';
 import './last_week_chart_box.dart';
 import './new_transaction_form.dart';
+import './no_transaction_added.dart';
 import '../models/transaction.dart';
 
 class HomePage extends StatefulWidget {
@@ -65,7 +66,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO : add awsome widget for empty space
     final _height = MediaQuery.of(context).size.height;
     final _boxChartHeight = 0.30 * _height;
 
@@ -92,10 +92,12 @@ class _HomePageState extends State<HomePage> {
               height: _boxChartHeight,
             ),
             Expanded(
-              child: TransactionsList(
-                transactions: _transactions,
-                deleteHandler: _deleteHandler,
-              ),
+              child: _transactions.isEmpty
+                  ? NoTransactionAdded()
+                  : TransactionsList(
+                      transactions: _transactions,
+                      deleteHandler: _deleteHandler,
+                    ),
             ),
           ],
         ),
