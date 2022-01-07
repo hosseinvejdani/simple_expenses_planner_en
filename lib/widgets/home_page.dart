@@ -87,16 +87,9 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
+            LastWeekChartBox(
+              transactions: _recentTransactions,
               height: _boxChartHeight,
-              padding: EdgeInsets.all(5),
-              margin: EdgeInsets.only(top: 7, bottom: 10),
-              child: Card(
-                child: LastWeekChartBox(
-                  transactions: _recentTransactions,
-                ),
-                elevation: 5,
-              ),
             ),
             Expanded(
               child: TransactionsList(
