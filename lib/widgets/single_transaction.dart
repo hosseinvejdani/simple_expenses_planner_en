@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+import '../screens/home_controller.dart';
 
 class SingleTx extends StatelessWidget {
   final String id;
   final String title;
   final double value;
   final DateTime date;
-  final Function deleteHandler;
 
-  const SingleTx({
+  SingleTx({
     required this.id,
     required this.title,
     required this.value,
     required this.date,
-    required this.deleteHandler,
     Key? key,
   }) : super(key: key);
+
+  final homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class SingleTx extends StatelessWidget {
           ),
           subtitle: Text(DateFormat.yMMMEd().format(date)),
           trailing: IconButton(
-            onPressed: () => deleteHandler(id),
+            onPressed: () => homeController.deleteTransaction(id),
             icon: Icon(Icons.delete),
             color: Colors.redAccent,
           ),
