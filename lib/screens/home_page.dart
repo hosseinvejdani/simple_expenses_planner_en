@@ -12,6 +12,7 @@ class HomePage extends StatelessWidget {
 
   void startAddNewTransaction(BuildContext context) {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
       builder: (context) {
         return NewTransactionForm();
