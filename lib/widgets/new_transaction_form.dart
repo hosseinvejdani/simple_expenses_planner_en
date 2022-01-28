@@ -1,77 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import '../controllers/home_controller.dart';
+import '../controllers/form_controller.dart';
 
-class NewTransactionForm extends StatefulWidget {
-  final Function newTransactionHandler;
-  final VoidCallback cancleButtonHandler;
-  const NewTransactionForm({
-    required this.cancleButtonHandler,
-    required this.newTransactionHandler,
-    Key? key,
-  }) : super(key: key);
+class NewTransactionForm extends StatelessWidget {
+  NewTransactionForm({Key? key}) : super(key: key);
 
-  @override
-  State<NewTransactionForm> createState() => _NewTransactionFormState();
-}
-
-class _NewTransactionFormState extends State<NewTransactionForm> {
-  final _titleController = TextEditingController();
-  final _valueController = TextEditingController();
-  DateTime _selectedDate = DateTime.now();
-
-  bool _isValidTitle = true;
-  bool _isValidValue = true;
-
-  void _submitData() {
-    if (_isValidData()) {
-      widget.newTransactionHandler({
-        'title': _titleController.text,
-        'value': double.parse(_valueController.text),
-        'date': _selectedDate,
-      });
-    }
-  }
-
-  bool _isValidData() {
-    if (_titleController.text.isEmpty) {
-      setState(() {
-        _isValidTitle = false;
-      });
-      return false;
-    } else if (_valueController.text.isEmpty) {
-      setState(() {
-        _isValidValue = false;
-      });
-      return false;
-    }
-
-    final enteredAmount = double.parse(_valueController.text);
-
-    if (enteredAmount <= 0) {
-      setState(() {
-        _isValidValue = false;
-      });
-      return false;
-    }
-
-    return true;
-  }
-
-  void _presentDatePicker() {
-    showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2021),
-      lastDate: DateTime.now().add(Duration(days: 30)),
-    ).then((pickedDate) {
-      if (pickedDate == null) {
-        return null;
-      }
-      setState(() {
-        _selectedDate = pickedDate;
-      });
-    });
-  }
+  final formController = Get.put(NewTransactionFormController());
+  final homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -93,8 +30,10 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
             keyboardType: TextInputType.name,
             decoration: InputDecoration(
                 labelText: 'title',
-                errorText: _isValidTitle ? null : 'Title can not be empty!!'),
-            controller: _titleController,
+                errorText: formController.formData['isValidTitle']
+                    ? null
+                    : 'Title can not be empty!!'),
+            controller: formController.formData['titleController'],
           ),
           SizedBox(
             height: 10,
@@ -103,11 +42,11 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               labelText: 'value',
-              errorText: _isValidValue
+              errorText: formController.formData['isValidValue']
                   ? null
                   : 'Value can not be empty, zero of negative number!!',
             ),
-            controller: _valueController,
+            controller: formController.formData['valueController'],
           ),
           SizedBox(
             height: 20,
@@ -115,12 +54,12 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Date:     ${DateFormat.yMMMd().format(_selectedDate)}',
-                style: TextStyle(fontSize: 16),
-              ),
+              Obx(() => Text(
+                    'Date:     ${DateFormat.yMMMd().format(formController.formData['selectedDate'])}',
+                    style: TextStyle(fontSize: 16),
+                  )),
               TextButton(
-                onPressed: _presentDatePicker,
+                onPressed: () => formController.presentDatePicker(context),
                 child: Text(
                   'Choose Date',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -135,7 +74,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                  onPressed: widget.cancleButtonHandler,
+                  onPressed: homeController.cancleAddingNewTransaction,
                   child: Text(
                     'CANCLE',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -144,7 +83,7 @@ class _NewTransactionFormState extends State<NewTransactionForm> {
                 width: 20,
               ),
               ElevatedButton(
-                onPressed: _submitData,
+                onPressed: formController.submitData,
                 child: Text(
                   'ADD',
                   style: TextStyle(fontWeight: FontWeight.bold),

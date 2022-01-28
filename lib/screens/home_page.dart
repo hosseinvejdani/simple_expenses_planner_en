@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import './home_controller.dart';
+import '../controllers/home_controller.dart';
 import '../widgets/transactions_list.dart';
 import '../widgets/last_week_chart_box.dart';
 import '../widgets/new_transaction_form.dart';
@@ -14,10 +14,7 @@ class HomePage extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return NewTransactionForm(
-          newTransactionHandler: homeController.addNewTransaction,
-          cancleButtonHandler: homeController.cancleAddingNewTransaction,
-        );
+        return NewTransactionForm();
       },
       isDismissible: false,
       shape: RoundedRectangleBorder(
