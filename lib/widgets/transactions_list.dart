@@ -13,8 +13,6 @@ class TransactionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // homeController.transactions
-    //     .sort((tx1, tx2) => tx2.date.compareTo(tx1.date));
     return Obx(() => homeController.transactions.isEmpty
         ? NoTransactionAdded()
         : ListView.builder(

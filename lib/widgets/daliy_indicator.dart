@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import '../screens/home_controller.dart';
-
 import './precentage_bar_indicator.dart';
 
 class DailyIndicator extends StatelessWidget {
@@ -9,8 +6,6 @@ class DailyIndicator extends StatelessWidget {
   final int precentage;
   const DailyIndicator({required this.day, required this.precentage, Key? key})
       : super(key: key);
-
-  // final homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
