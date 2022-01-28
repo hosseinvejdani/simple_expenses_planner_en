@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 import './single_transaction.dart';
+import 'package:get/get.dart';
+import '../screens/home_controller.dart';
+import './no_transaction_added.dart';
 
 class TransactionsList extends StatelessWidget {
-  final List transactions;
-  final Function deleteHandler;
-
-  const TransactionsList({
+  TransactionsList({
     Key? key,
-    required this.transactions,
-    required this.deleteHandler,
   }) : super(key: key);
+
+  final homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
-    transactions.sort((tx1, tx2) => tx2.date.compareTo(tx1.date));
-    return ListView.builder(
-      itemCount: transactions.length,
-      itemBuilder: (BuildContext context, index) {
-        return SingleTx(
-          id: transactions[index].id,
-          title: transactions[index].title,
-          value: transactions[index].value,
-          date: transactions[index].date,
-          deleteHandler: deleteHandler,
-        );
-      },
-    );
+    // homeController.transactions
+    //     .sort((tx1, tx2) => tx2.date.compareTo(tx1.date));
+    return Obx(() => homeController.transactions.isEmpty
+        ? NoTransactionAdded()
+        : ListView.builder(
+            itemCount: homeController.transactions.length,
+            itemBuilder: (BuildContext context, index) {
+              return SingleTx(
+                id: homeController.transactions[index].id,
+                title: homeController.transactions[index].title,
+                value: homeController.transactions[index].value,
+                date: homeController.transactions[index].date,
+              );
+            },
+          ));
   }
 }

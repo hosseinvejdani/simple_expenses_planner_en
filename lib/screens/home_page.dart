@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import './home_controller.dart';
 import '../widgets/transactions_list.dart';
 import '../widgets/last_week_chart_box.dart';
 import '../widgets/new_transaction_form.dart';
 import '../widgets/no_transaction_added.dart';
-import '../models/transaction.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  HomePage({Key? key}) : super(key: key);
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  final List _transactions = <Transaction>[];
+  final homeController = Get.put(HomeController());
 
   void startAddNewTransaction(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
         return NewTransactionForm(
-          newTransactionHandler: _addNewTransaction,
-          cancleButtonHandler: _cancleAddingNewTransaction,
+          newTransactionHandler: homeController.addNewTransaction,
+          cancleButtonHandler: homeController.cancleAddingNewTransaction,
         );
       },
       isDismissible: false,
@@ -30,38 +26,6 @@ class _HomePageState extends State<HomePage> {
         top: Radius.circular(20),
       )),
     );
-  }
-
-  void _addNewTransaction(Map data) {
-    Transaction newTx = Transaction(
-      id: data['date'].toString(),
-      title: data['title'],
-      value: data['value'],
-      date: data['date'],
-    );
-    setState(() {
-      _transactions.add(newTx);
-    });
-    Navigator.of(context).pop();
-  }
-
-  void _cancleAddingNewTransaction() {
-    Navigator.of(context).pop();
-  }
-
-  void _deleteHandler(String id) {
-    setState(() {
-      _transactions.removeWhere((element) {
-        return element.id == id;
-      });
-    });
-  }
-
-  List get _recentTransactions {
-    return _transactions
-        .where(
-            (tx) => tx.date.isAfter(DateTime.now().subtract(Duration(days: 7))))
-        .toList();
   }
 
   @override
@@ -88,16 +52,10 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             LastWeekChartBox(
-              transactions: _recentTransactions,
               height: _boxChartHeight,
             ),
             Expanded(
-              child: _transactions.isEmpty
-                  ? NoTransactionAdded()
-                  : TransactionsList(
-                      transactions: _transactions,
-                      deleteHandler: _deleteHandler,
-                    ),
+              child: TransactionsList(),
             ),
           ],
         ),

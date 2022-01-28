@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'screens/home_page.dart';
+import 'package:get/get.dart';
+// import './screens/home_binding.dart';
+import './screens/home_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -14,8 +16,10 @@ class MyApp extends StatelessWidget {
       fontFamily: 'Quicksand',
     );
     //
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      initialRoute: '/home',
+      getPages: [GetPage(name: '/home', page: () => HomePage())],
       home: HomePage(),
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(
