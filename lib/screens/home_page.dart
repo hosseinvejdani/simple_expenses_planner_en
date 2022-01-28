@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import './transactions_list.dart';
-import './last_week_chart_box.dart';
-import './new_transaction_form.dart';
-import './no_transaction_added.dart';
+import '../widgets/transactions_list.dart';
+import '../widgets/last_week_chart_box.dart';
+import '../widgets/new_transaction_form.dart';
+import '../widgets/no_transaction_added.dart';
 import '../models/transaction.dart';
 
 class HomePage extends StatefulWidget {
