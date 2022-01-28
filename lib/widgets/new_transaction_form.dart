@@ -26,28 +26,28 @@ class NewTransactionForm extends StatelessWidget {
               ),
             ),
           ),
-          TextField(
-            keyboardType: TextInputType.name,
-            decoration: InputDecoration(
-                labelText: 'title',
-                errorText: formController.formData['isValidTitle']
-                    ? null
-                    : 'Title can not be empty!!'),
-            controller: formController.formData['titleController'],
-          ),
+          Obx(() => TextField(
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                    labelText: 'title',
+                    errorText: formController.formData['isValidTitle']
+                        ? null
+                        : 'Title can not be empty!!'),
+                controller: formController.formData['titleController'],
+              )),
           SizedBox(
             height: 10,
           ),
-          TextField(
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'value',
-              errorText: formController.formData['isValidValue']
-                  ? null
-                  : 'Value can not be empty, zero of negative number!!',
-            ),
-            controller: formController.formData['valueController'],
-          ),
+          Obx(() => TextField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'value',
+                  errorText: formController.formData['isValidValue']
+                      ? null
+                      : 'Value can not be empty, zero of negative number!!',
+                ),
+                controller: formController.formData['valueController'],
+              )),
           SizedBox(
             height: 20,
           ),
