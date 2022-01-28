@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/home',
       getPages: [GetPage(name: '/home', page: () => HomePage())],
-      home: HomePage(),
       theme: theme.copyWith(
         colorScheme: theme.colorScheme.copyWith(
           secondary: Colors.amber,

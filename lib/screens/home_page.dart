@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
       builder: (context) {
         return NewTransactionForm();
       },
-      isDismissible: false,
+      // isDismissible: false,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
         top: Radius.circular(20),

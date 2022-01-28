@@ -17,6 +17,8 @@ class NewTransactionFormController extends GetxController {
     formData['selectedDate'] = DateTime.now();
     formData['isValidTitle'] = true;
     formData['isValidValue'] = true;
+    formData['titleErrorMessage'] = null;
+    formData['valueErrorMessage'] = null;
   }
 
   final homeController = Get.find<HomeController>();
@@ -33,12 +35,22 @@ class NewTransactionFormController extends GetxController {
     }
   }
 
-  bool _isValidData() {
+  bool _isValidTitle() {
     if (formData["titleController"].text.isEmpty) {
       formData["isValidTitle"] = false;
+      formData['titleErrorMessage'] = 'The Title Can Not be Empty!';
       return false;
-    } else if (formData["valueController"].text.isEmpty) {
+    } else {
+      formData["isValidTitle"] = true;
+      formData['titleErrorMessage'] = null;
+      return true;
+    }
+  }
+
+  bool _isValidValue() {
+    if (formData["valueController"].text.isEmpty) {
       formData["isValidValue"] = false;
+      formData['valueErrorMessage'] = 'The Value Can Not be Empty!';
       return false;
     }
 
@@ -46,9 +58,17 @@ class NewTransactionFormController extends GetxController {
 
     if (enteredAmount <= 0) {
       formData["isValidValue"] = false;
+      formData['valueErrorMessage'] = 'The Value Can Not be Zero or Negative!';
       return false;
     }
+
+    formData["isValidValue"] = true;
+    formData['valueErrorMessage'] = null;
     return true;
+  }
+
+  bool _isValidData() {
+    return _isValidTitle() && _isValidValue();
   }
 
   void presentDatePicker(context) {
