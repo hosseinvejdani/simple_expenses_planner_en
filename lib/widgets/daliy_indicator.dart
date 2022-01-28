@@ -10,22 +10,26 @@ class DailyIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Text(
-          '$precentage%',
-          style:
-              TextStyle(fontWeight: FontWeight.bold, color: Colors.grey[700]),
-        ),
-        PrecentageBarIndicator(
-            height: 90, width: 15, precentage: precentage / 100),
-        Text(
-          day,
-          style:
-              TextStyle(fontWeight: FontWeight.bold, color: Colors.grey[700]),
-        ),
-      ],
+    final w = MediaQuery.of(context).size.width;
+    return SizedBox(
+      width: w / 10, // this control the single daily indicator size
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            '$precentage%',
+            style:
+                TextStyle(fontWeight: FontWeight.bold, color: Colors.grey[700]),
+          ),
+          PrecentageBarIndicator(
+              height: 90, width: 15, precentage: precentage / 100),
+          Text(
+            day,
+            style:
+                TextStyle(fontWeight: FontWeight.bold, color: Colors.grey[700]),
+          ),
+        ],
+      ),
     );
   }
 }
